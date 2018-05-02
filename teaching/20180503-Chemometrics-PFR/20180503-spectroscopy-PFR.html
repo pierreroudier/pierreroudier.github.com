@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A (gentle) introduction to chemometrics</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Pierre Roudier" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
+    <script src="libs/plotly-binding-4.7.1.9000/plotly.js"></script>
+    <script src="libs/typedarray-0.1/typedarray.min.js"></script>
+    <script src="libs/jquery-1.11.3/jquery.min.js"></script>
+    <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+    <link href="libs/plotlyjs-1.33.1/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="libs/plotlyjs-1.33.1/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# A (gentle) introduction to chemometrics
+### Pierre Roudier
+### May 3rd, 2018
+
+---
+
+class: inverse, center, middle
+
+# A scary word 😱
+
+
+
+
+
+---
+class: middle, center
+
+&gt; **Chemometrics** is the science of extracting information 
+&gt; from chemical systems by **data-driven** means
+
+-[Wikipedia](https://en.wikipedia.org/wiki/Chemometrics) (so it must be true)
+
+---
+class: middle, center
+
+**chemometrics** 
+
+= 
+
+**signal processing** + **statistical inference**
+
+---
+class: inverse, center, middle
+
+# Signal processing ⚡
+
+---
+class: center, middle
+
+## Different types of noise
+
+---
+class: center
+
+## Sensor related
+
+![](20180503-spectroscopy-PFR_files/figure-html/splice_1-1.png)&lt;!-- --&gt;
+
+---
+class: center
+
+## Sensor related
+
+![](20180503-spectroscopy-PFR_files/figure-html/splice_2-1.png)&lt;!-- --&gt;
+
+---
+class: center
+
+## Uniform noise
+
+![](20180503-spectroscopy-PFR_files/figure-html/unif_noise_1, -1.png)&lt;!-- --&gt;
+
+---
+class: center
+
+## Uniform noise
+
+![](20180503-spectroscopy-PFR_files/figure-html/unif_noise_2, -1.png)&lt;!-- --&gt;
+
+
+
+--- 
+class: center
+
+## Additive noise
+
+![](20180503-spectroscopy-PFR_files/figure-html/add_noise_1-1.png)&lt;!-- --&gt;
+
+---
+class: center
+
+## Additive noise
+
+![](20180503-spectroscopy-PFR_files/figure-html/add_noise_2-1.png)&lt;!-- --&gt;
+
+---
+class: center
+
+## Multiplicative noise
+
+![](20180503-spectroscopy-PFR_files/figure-html/mult_noise_1-1.png)&lt;!-- --&gt;
+
+---
+class: center, middle
+
+A large suite of methods are available to solve noise problems
+
+- Splicing
+- SNV/RNV
+- Savitzky-Golay transform
+- Baseline
+- Binning
+- etc.
+
+---
+class: center, middle
+
+## Advanced topics
+
+Removing external signal from spectra (temperature, moisture, ...)
+
+---
+class: inverse, center, middle
+
+# Statistical inference 💡
+
+---
+class: center, middle
+
+We need to relate those **multivariate** datasets to observed properties
+
+The objective can be either **classification** or **regression**
+
+---
+class: center, middle
+
+## PCA
+
+Principal Component Analysis
+
+The dataset is projected in a multi-space where variables are all **independant**
+
+Hyperspaces of **maximum varaince**
+
+Great way to reduce dimensionality/"compress"" the variance
+
+---
+class: center, middle
+
+## PCA
+
+![](20180503-spectroscopy-PFR_files/figure-html/pca-1.png)&lt;!-- --&gt;
+
+---
+class: center, middle
+
+## PCA
+
+![](20180503-spectroscopy-PFR_files/figure-html/pca2-1.png)&lt;!-- --&gt;
+
+---
+class: center, middle
+
+## Application to outlier detection
+
+<div id="htmlwidget-0fd5a90260b67e62e291" style="width:800px;height:500px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0fd5a90260b67e62e291">{"x":{"data":[{"x":[-11.9328029698878,-9.81988959673377,-8.17383002913808,-9.57859260555692,-10.7636244733728,-8.40535519719599,-12.2327394477676,-6.70767524253376,-5.50681763536652,-12.9622632702989,-8.91068690500365,-13.8419625467562,-11.3249415005025,-12.5938459279473,-13.040958698722,-13.6330422793967,-15.619284039413,-15.5241890617991,-14.3769265030082,1.18359099095978,5.44631706001628,5.95187537752866,6.09820282540039,4.87300694827751,6.85504657821794,5.94593409999494,1.94184681668721,4.14438483144362,4.80470038381119,2.52207250926802,1.9713351841683,6.5912987972038,3.14834732929942,0.719882898474235,-1.16715765046614,4.44998559201575,1.75613206854522,2.69424446750677,3.97081520293261,5.05385312305519,6.358992814148,3.52883283698026,-7.23323619453051,6.77273407953031,6.12233596131325,5.72734311975342,6.42049533978076,4.97770474987694,5.89230878763585,8.32403940131401,8.69829995180626,3.73321327769309,0.580348864140196,1.85244232870385,3.16209063730057,2.84760619349552,6.83919066565815,4.99917580047692,6.14944387099632,5.23800948328832,4.74948178296326,4.9975401783621,6.70439935604902,5.32200462866246,0.229226341682165,1.9663270888885,-2.92380564579255,0.832464852220895,6.08947180650241,0.0770786338578823,3.66977739437988,-0.0590221202717517,1.32794071942379,-2.47769600873153,-2.99985806532966,1.07374505015974,3.5082857812396,1.01073726372856,5.31566094253049,0.802399131952662,4.49161260212186,9.42115623409268,5.12912250875421,7.04165856566458,0.861380827352761,9.2508043374692,2.22368811903791,7.71300986494243,-6.22384126600125,4.1617228444518,4.94611338688974,-1.92548380242539,2.05704496479011,-2.30549790383638,-1.04366753096817,2.26629313785355,1.33453090777986,-5.84084531647689],"y":[-3.07683333495279,-3.99825152826337,-1.74034809811591,-0.201085758274255,-1.12158985602968,-0.89033660501076,-5.22784287805867,0.951295389282257,1.40708154368428,0.868258265472165,1.48866530005179,0.797089120099412,1.18699579095498,0.849499609877066,0.956593326430637,0.758992697070756,0.701679777097408,0.957432032950997,0.812532914528374,0.0434667057440051,-0.562022455255066,-0.502436548342177,-1.25709193755344,-0.546882501534606,-0.829376359230336,-0.292663133959152,-0.0614265449490333,-1.18347178502963,-0.964333750755767,-0.572428661329204,-0.775309301624834,-0.167102057585606,-0.66972788153308,-1.04449302681134,-0.145886724807587,-0.271076779409446,1.51348997139324,-0.46070464977564,-0.51119408052619,-0.511134623832105,-1.05671431250121,-0.223564298698238,1.46390718036861,-0.0814692622353862,-0.158807902904505,-0.273463818434637,-0.711382783306541,0.314732572096411,-0.985390531926096,-1.04519252059324,-0.711679104176286,-0.120710025988637,0.497306263020933,-0.706270980820524,-1.31497659486823,-1.1017392262778,-0.599913634788894,-1.08126173002904,-0.166999400342505,-1.44238398470364,-0.284419058554111,-0.503563004389665,-1.24119716344182,0.632961704248737,1.91806570054662,0.390298027220532,2.34316344652381,-0.487953440690148,0.0728274365781745,-0.27851886574958,-0.0992972257321745,1.02861258573285,0.0513623147723035,2.066511129294,2.12107128121599,0.259638074344346,-0.0241402843305235,0.459461546243455,1.09833540656052,1.97574393392652,0.682617737743209,-0.14264716948935,0.0462148380381604,0.56165703389497,0.890454612016425,0.141532252954108,0.829500709861262,0.318443104700418,2.44161475484523,0.572897197811546,0.661696208287371,2.90450643527688,1.77685303931504,1.45281613483078,0.826150365160899,0.650659525621836,0.818367284586665,2.85250023090929],"text":["PC1: -11.93280297<br />PC2: -3.07683333<br />outliers: Not Outlier","PC1:  -9.81988960<br />PC2: -3.99825153<br />outliers: Not Outlier","PC1:  -8.17383003<br />PC2: -1.74034810<br />outliers: Not Outlier","PC1:  -9.57859261<br />PC2: -0.20108576<br />outliers: Not Outlier","PC1: -10.76362447<br />PC2: -1.12158986<br />outliers: Not Outlier","PC1:  -8.40535520<br />PC2: -0.89033661<br />outliers: Not Outlier","PC1: -12.23273945<br />PC2: -5.22784288<br />outliers: Not Outlier","PC1:  -6.70767524<br />PC2:  0.95129539<br />outliers: Not Outlier","PC1:  -5.50681764<br />PC2:  1.40708154<br />outliers: Not Outlier","PC1: -12.96226327<br />PC2:  0.86825827<br />outliers: Not Outlier","PC1:  -8.91068691<br />PC2:  1.48866530<br />outliers: Not Outlier","PC1: -13.84196255<br />PC2:  0.79708912<br />outliers: Not Outlier","PC1: -11.32494150<br />PC2:  1.18699579<br />outliers: Not Outlier","PC1: -12.59384593<br />PC2:  0.84949961<br />outliers: Not Outlier","PC1: -13.04095870<br />PC2:  0.95659333<br />outliers: Not Outlier","PC1: -13.63304228<br />PC2:  0.75899270<br />outliers: Not Outlier","PC1: -15.61928404<br />PC2:  0.70167978<br />outliers: Not Outlier","PC1: -15.52418906<br />PC2:  0.95743203<br />outliers: Not Outlier","PC1: -14.37692650<br />PC2:  0.81253291<br />outliers: Not Outlier","PC1:   1.18359099<br />PC2:  0.04346671<br />outliers: Not Outlier","PC1:   5.44631706<br />PC2: -0.56202246<br />outliers: Not Outlier","PC1:   5.95187538<br />PC2: -0.50243655<br />outliers: Not Outlier","PC1:   6.09820283<br />PC2: -1.25709194<br />outliers: Not Outlier","PC1:   4.87300695<br />PC2: -0.54688250<br />outliers: Not Outlier","PC1:   6.85504658<br />PC2: -0.82937636<br />outliers: Not Outlier","PC1:   5.94593410<br />PC2: -0.29266313<br />outliers: Not Outlier","PC1:   1.94184682<br />PC2: -0.06142654<br />outliers: Not Outlier","PC1:   4.14438483<br />PC2: -1.18347179<br />outliers: Not Outlier","PC1:   4.80470038<br />PC2: -0.96433375<br />outliers: Not Outlier","PC1:   2.52207251<br />PC2: -0.57242866<br />outliers: Not Outlier","PC1:   1.97133518<br />PC2: -0.77530930<br />outliers: Not Outlier","PC1:   6.59129880<br />PC2: -0.16710206<br />outliers: Not Outlier","PC1:   3.14834733<br />PC2: -0.66972788<br />outliers: Not Outlier","PC1:   0.71988290<br />PC2: -1.04449303<br />outliers: Not Outlier","PC1:  -1.16715765<br />PC2: -0.14588672<br />outliers: Not Outlier","PC1:   4.44998559<br />PC2: -0.27107678<br />outliers: Not Outlier","PC1:   1.75613207<br />PC2:  1.51348997<br />outliers: Not Outlier","PC1:   2.69424447<br />PC2: -0.46070465<br />outliers: Not Outlier","PC1:   3.97081520<br />PC2: -0.51119408<br />outliers: Not Outlier","PC1:   5.05385312<br />PC2: -0.51113462<br />outliers: Not Outlier","PC1:   6.35899281<br />PC2: -1.05671431<br />outliers: Not Outlier","PC1:   3.52883284<br />PC2: -0.22356430<br />outliers: Not Outlier","PC1:  -7.23323619<br />PC2:  1.46390718<br />outliers: Not Outlier","PC1:   6.77273408<br />PC2: -0.08146926<br />outliers: Not Outlier","PC1:   6.12233596<br />PC2: -0.15880790<br />outliers: Not Outlier","PC1:   5.72734312<br />PC2: -0.27346382<br />outliers: Not Outlier","PC1:   6.42049534<br />PC2: -0.71138278<br />outliers: Not Outlier","PC1:   4.97770475<br />PC2:  0.31473257<br />outliers: Not Outlier","PC1:   5.89230879<br />PC2: -0.98539053<br />outliers: Not Outlier","PC1:   8.32403940<br />PC2: -1.04519252<br />outliers: Not Outlier","PC1:   8.69829995<br />PC2: -0.71167910<br />outliers: Not Outlier","PC1:   3.73321328<br />PC2: -0.12071003<br />outliers: Not Outlier","PC1:   0.58034886<br />PC2:  0.49730626<br />outliers: Not Outlier","PC1:   1.85244233<br />PC2: -0.70627098<br />outliers: Not Outlier","PC1:   3.16209064<br />PC2: -1.31497659<br />outliers: Not Outlier","PC1:   2.84760619<br />PC2: -1.10173923<br />outliers: Not Outlier","PC1:   6.83919067<br />PC2: -0.59991363<br />outliers: Not Outlier","PC1:   4.99917580<br />PC2: -1.08126173<br />outliers: Not Outlier","PC1:   6.14944387<br />PC2: -0.16699940<br />outliers: Not Outlier","PC1:   5.23800948<br />PC2: -1.44238398<br />outliers: Not Outlier","PC1:   4.74948178<br />PC2: -0.28441906<br />outliers: Not Outlier","PC1:   4.99754018<br />PC2: -0.50356300<br />outliers: Not Outlier","PC1:   6.70439936<br />PC2: -1.24119716<br />outliers: Not Outlier","PC1:   5.32200463<br />PC2:  0.63296170<br />outliers: Not Outlier","PC1:   0.22922634<br />PC2:  1.91806570<br />outliers: Not Outlier","PC1:   1.96632709<br />PC2:  0.39029803<br />outliers: Not Outlier","PC1:  -2.92380565<br />PC2:  2.34316345<br />outliers: Not Outlier","PC1:   0.83246485<br />PC2: -0.48795344<br />outliers: Not Outlier","PC1:   6.08947181<br />PC2:  0.07282744<br />outliers: Not Outlier","PC1:   0.07707863<br />PC2: -0.27851887<br />outliers: Not Outlier","PC1:   3.66977739<br />PC2: -0.09929723<br />outliers: Not Outlier","PC1:  -0.05902212<br />PC2:  1.02861259<br />outliers: Not Outlier","PC1:   1.32794072<br />PC2:  0.05136231<br />outliers: Not Outlier","PC1:  -2.47769601<br />PC2:  2.06651113<br />outliers: Not Outlier","PC1:  -2.99985807<br />PC2:  2.12107128<br />outliers: Not Outlier","PC1:   1.07374505<br />PC2:  0.25963807<br />outliers: Not Outlier","PC1:   3.50828578<br />PC2: -0.02414028<br />outliers: Not Outlier","PC1:   1.01073726<br />PC2:  0.45946155<br />outliers: Not Outlier","PC1:   5.31566094<br />PC2:  1.09833541<br />outliers: Not Outlier","PC1:   0.80239913<br />PC2:  1.97574393<br />outliers: Not Outlier","PC1:   4.49161260<br />PC2:  0.68261774<br />outliers: Not Outlier","PC1:   9.42115623<br />PC2: -0.14264717<br />outliers: Not Outlier","PC1:   5.12912251<br />PC2:  0.04621484<br />outliers: Not Outlier","PC1:   7.04165857<br />PC2:  0.56165703<br />outliers: Not Outlier","PC1:   0.86138083<br />PC2:  0.89045461<br />outliers: Not Outlier","PC1:   9.25080434<br />PC2:  0.14153225<br />outliers: Not Outlier","PC1:   2.22368812<br />PC2:  0.82950071<br />outliers: Not Outlier","PC1:   7.71300986<br />PC2:  0.31844310<br />outliers: Not Outlier","PC1:  -6.22384127<br />PC2:  2.44161475<br />outliers: Not Outlier","PC1:   4.16172284<br />PC2:  0.57289720<br />outliers: Not Outlier","PC1:   4.94611339<br />PC2:  0.66169621<br />outliers: Not Outlier","PC1:  -1.92548380<br />PC2:  2.90450644<br />outliers: Not Outlier","PC1:   2.05704496<br />PC2:  1.77685304<br />outliers: Not Outlier","PC1:  -2.30549790<br />PC2:  1.45281613<br />outliers: Not Outlier","PC1:  -1.04366753<br />PC2:  0.82615037<br />outliers: Not Outlier","PC1:   2.26629314<br />PC2:  0.65065953<br />outliers: Not Outlier","PC1:   1.33453091<br />PC2:  0.81836728<br />outliers: Not Outlier","PC1:  -5.84084532<br />PC2:  2.85250023<br />outliers: Not Outlier"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","name":"Not Outlier","legendgroup":"Not Outlier","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[-19.4211333456289,-18.351487721643],"y":[-0.623161099076329,-5.36368422658651],"text":["PC1: -19.42113335<br />PC2: -0.62316110<br />outliers: Outlier","PC1: -18.35148772<br />PC2: -5.36368423<br />outliers: Outlier"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(255,0,0,1)"}},"hoveron":"points","name":"Outlier","legendgroup":"Outlier","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[6.12444123193612e-17],"y":[-2.92960100622963e-16],"text":"PC1: 6.124441e-17<br />PC2: -2.929601e-16","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,255,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,255,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.3059360730594,"r":7.30593607305936,"b":37.2602739726027,"l":37.2602739726027},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[-20.863247824615,10.8632707130788],"tickmode":"array","ticktext":["-20","-10","0","10"],"tickvals":[-20,-10,0,10],"categoryorder":"array","categoryarray":["-20","-10","0","10"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"PC1","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[-5.77709375967968,3.31791596837005],"tickmode":"array","ticktext":["-4","-2","0","2"],"tickvals":[-4,-2,0,2],"categoryorder":"array","categoryarray":["-4","-2","0","2"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":"PC2","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(51,51,51,1)","width":0.66417600664176,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"y":0.938132733408324},"annotations":[{"text":"outliers","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":[{"name":"Collaborate","icon":{"width":1000,"ascent":500,"descent":-50,"path":"M487 375c7-10 9-23 5-36l-79-259c-3-12-11-23-22-31-11-8-22-12-35-12l-263 0c-15 0-29 5-43 15-13 10-23 23-28 37-5 13-5 25-1 37 0 0 0 3 1 7 1 5 1 8 1 11 0 2 0 4-1 6 0 3-1 5-1 6 1 2 2 4 3 6 1 2 2 4 4 6 2 3 4 5 5 7 5 7 9 16 13 26 4 10 7 19 9 26 0 2 0 5 0 9-1 4-1 6 0 8 0 2 2 5 4 8 3 3 5 5 5 7 4 6 8 15 12 26 4 11 7 19 7 26 1 1 0 4 0 9-1 4-1 7 0 8 1 2 3 5 6 8 4 4 6 6 6 7 4 5 8 13 13 24 4 11 7 20 7 28 1 1 0 4 0 7-1 3-1 6-1 7 0 2 1 4 3 6 1 1 3 4 5 6 2 3 3 5 5 6 1 2 3 5 4 9 2 3 3 7 5 10 1 3 2 6 4 10 2 4 4 7 6 9 2 3 4 5 7 7 3 2 7 3 11 3 3 0 8 0 13-1l0-1c7 2 12 2 14 2l218 0c14 0 25-5 32-16 8-10 10-23 6-37l-79-259c-7-22-13-37-20-43-7-7-19-10-37-10l-248 0c-5 0-9-2-11-5-2-3-2-7 0-12 4-13 18-20 41-20l264 0c5 0 10 2 16 5 5 3 8 6 10 11l85 282c2 5 2 10 2 17 7-3 13-7 17-13z m-304 0c-1-3-1-5 0-7 1-1 3-2 6-2l174 0c2 0 4 1 7 2 2 2 4 4 5 7l6 18c0 3 0 5-1 7-1 1-3 2-6 2l-173 0c-3 0-5-1-8-2-2-2-4-4-4-7z m-24-73c-1-3-1-5 0-7 2-2 3-2 6-2l174 0c2 0 5 0 7 2 3 2 4 4 5 7l6 18c1 2 0 5-1 6-1 2-3 3-5 3l-174 0c-3 0-5-1-7-3-3-1-4-4-5-6z"},"click":"function(gd) { \n        // is this being viewed in RStudio?\n        if (location.search == '?viewer_pane=1') {\n          alert('To learn about plotly for collaboration, visit:\\n https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html');\n        } else {\n          window.open('https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html', '_blank');\n        }\n      }"}],"cloud":false},"source":"A","attrs":{"147955232a67":{"x":{},"y":{},"colour":{},"type":"scatter"},"14794725ff0b":{"x":{},"y":{}}},"cur_data":"147955232a67","visdat":{"147955232a67":["function (y) ","x"],"14794725ff0b":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1}},"base_url":"https://plot.ly"},"evals":["config.modeBarButtonsToAdd.0.click"],"jsHooks":[]}</script>
+
+&lt;!-- (threshold used in this case: 4 x standard deviation of the distance to center) --&gt;
+
+---
+class: center, middle
+
+## Multivariate calibration methods
+
+The enemy is called **overfitting**
+
+It is very important to distinguish:
+
+- calibration (training) dataset
+- validation (testing) dataset
+
+---
+class: center, middle
+
+## Multivariate calibration methods
+
+You can't use points from your validation set to tune your model.
+
+That's **cheating**!
+
+---
+class: center, middle
+
+## Data transformations
+
+![](20180503-spectroscopy-PFR_files/figure-html/transform-1.png)&lt;!-- --&gt;
+
+---
+class: center, middle
+
+## Data transformation
+
+
+key             skewness
+-------------  ---------
+carbon              1.58
+log_carbon         -0.47
+logp1_carbon        0.60
+
+---
+class: center, middle
+
+## Regression tools
+
+---
+class: center, middle
+
+## PCR
+
+Multiple linear regression on the principal components
+
+The principal components avoid collinearity
+
+---
+class: center, middle
+
+## PLSR
+
+Multiple linear regression on **latent variables**
+
+PLS projects both the variables and the outcome to a new space
+
+
+
+---
+class: center, middle
+
+## Machine learning
+
+Fairly new to the field
+
+Obvious advantage: handle non-linear relationships
+
+---
+class: center, middle
+
+## The bias *vs.* variance tradeoff
+
+&lt;img src="https://sebastianraschka.com/images/blog/2016/model-evaluation-selection-part2/visual_bias_variance.png" width="500" /&gt;
+
+---
+class: center, middle
+
+## Model evaluation
+
+at **calibration** time
+
+at **validation** time
+
+(ideally showing similar performance)
+
+---
+class: center, middle
+
+## Metrics
+
+- Bias
+- `\(R^2\)`/RPD
+- RMSE
+- RPIQ
+- CCC
+
+Don't stick to just one!
+
+---
+class: center, middle
+
+## Equations!
+
+`\(Bias = \bar{pred} - \bar{obs}\)`
+
+`\(RMSEp = \sqrt{\bar{(pred - obs)^2}}\)`
+
+`\(RPD = \frac{standard\ deviation(obs)}{RMSEp}\)`
+
+`\(RPIQ = \frac{IQ(obs)}{RMSEp}\)` -&gt; useful for non-normal cases!
+
+`\(CCC\)` quantifies the distance to 1:1 line
+
+---
+class: center, middle
+
+
+## Using model evaluation to select hyper-parameters
+
+![](20180503-spectroscopy-PFR_files/figure-html/hyperparams-1.png)&lt;!-- --&gt;
+
+---
+class: center, middle
+
+## Cross-validation
+
+![cross-validation](https://sebastianraschka.com/images/faq/evaluate-a-model/k-fold.png)
+
+
+---
+class: center, middle, inverse
+
+# Interpretation 🤓
+
+---
+class: center, middle
+
+
+## Loadings and scores
+
+**Loadings** represent the weight given to each wavelength 
+
+**Scores** are the transformed components (`X`) in the PLS hyper-space
+
+---
+class: center, middle
+
+
+## Loadings
+
+![](20180503-spectroscopy-PFR_files/figure-html/loadings-1.png)&lt;!-- --&gt;
+
+---
+class: center, middle
+
+## Scores
+
+![](20180503-spectroscopy-PFR_files/figure-html/scores-1.png)&lt;!-- --&gt;
+
+---
+class: center, middle
+
+## PLS coefficients
+
+![](20180503-spectroscopy-PFR_files/figure-html/coefs-1.png)&lt;!-- --&gt;
+
+---
+class: center, middle, inverse
+
+# Software 🤖
+
+---
+class: center, middle
+
+## The `spectacles` package for R
+
+`https://github.com/pierreroudier/spectacles`
+
+`https://CRAN.R-project.org/package=spectacles`
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
